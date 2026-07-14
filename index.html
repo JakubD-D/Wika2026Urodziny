@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wszystkiego Najlepszego! ❤️</title>
+   <style>
+        /* Import nowoczesnej czcionki */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            /* Animowane pastelowe tło */
+            background: linear-gradient(-45deg, #ffdee9, #b5fffc, #ffe5ec, #ffc2d1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #2d3748;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Animacja płynięcia kolorów w tle */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Efekt nowoczesnego, przeszklonego pudełka */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 { 
+            color: #ff4d6d; 
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: #ff758f;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 25px;
+        }
+
+        /* Stylowe, zaokrąglone przyciski */
+        .btn {
+            background: linear-gradient(135deg, #ff758f, #ff4d6d);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+            filter: brightness(1.05);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .hidden { 
+            display: none !important; 
+        }
+
+        /* Opcje wyboru randki na koniec */
+        .date-option {
+            background: rgba(255, 240, 243, 0.6);
+            border: 2px solid #ffccd5;
+            padding: 20px;
+            margin: 14px 0;
+            border-radius: 18px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .date-option h3 {
+            margin: 0 0 6px 0;
+            color: #ff4d6d;
+            font-size: 1.15rem;
+        }
+
+        .date-option p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #718096;
+        }
+
+        .date-option:hover { 
+            background: #ffffff;
+            border-color: #ff4d6d;
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.1);
+        }
+
+        #chosen-date {
+            color: #ff4d6d;
+            background: #fff0f3;
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+      
+        .heart-pop {
+            position: fixed;
+            color: #ff4d6d;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flyUp 0.8s ease-out forwards;
+        }
+
+        @keyframes flyUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-80px) scale(1.4) rotate(15deg);
+                opacity: 0;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+</head>
+<body>
+
+<div class="card">
+    <div id="start-screen">
+        <h1>Wszystkiego Najlepszego, Kochanie z okazji Twoich 20 urodzin! 🎉❤️</h1>
+        <p>Z okazji urodzin przygotowałem dla Ciebie mały quiz. Aby odblokować główną nagrodę!</p>
+        <button class="btn" onclick="startQuiz()">Zaczynamy!</button>
+    </div>
+
+    <div id="q1" class="hidden">
+        <h2>Pytanie 1</h2>
+        <p>Jakie było pierwsze picie które kupiliśmy?</p>
+        <button class="btn" onclick="nextQuestion(1, 'bad')">A) Fanta</button>
+        <button class="btn" onclick="nextQuestion(1, 'good')">B) Lipton zielony</button>
+        <button class="btn" onclick="nextQuestion(1, 'bad')">C) Lipton niebieski</button>
+        <button class="btn" onclick="nextQuestion(1, 'bad')">D) kubuś play</button>
+    </div>
+
+    <div id="q2" class="hidden">
+        <h2>Pytanie 2</h2>
+        <p>Co najbardziej w tobie lubie?</p>
+        <button class="btn" onclick="nextQuestion(2, 'good')">A) Pupaa</button>
+        <button class="btn" onclick="nextQuestion(2, 'good')">B) Twój uśmiech</button>
+        <button class="btn" onclick="nextQuestion(2, 'good')">C) Świetnie spędzony czas razem</button>
+        <button class="btn" onclick="nextQuestion(2, 'good')">D) Wszystko!!!</button>
+    </div>
+
+    <div id="q3" class="hidden">
+        <h2>Pytanie 3</h2>
+        <p>Nasze OG fav zwierze?</p>
+        <button class="btn" onclick="nextQuestion(3, 'bad')">A) Koty</button>
+        <button class="btn" onclick="nextQuestion(3, 'bad')">B) lama</button>
+        <button class="btn" onclick="nextQuestion(3, 'good')">C) szopy</button>
+        <button class="btn" onclick="nextQuestion(3, 'bad')">D) pieski</button>
+    </div>
+
+    <div id="q4" class="hidden">
+        <h2>Pytanie 4</h2>
+        <p>Jaki z tych seriali skończyliśmy jako pierwszy?</p>
+        <button class="btn" onclick="nextQuestion(4, 'bad')">A) Breaking bad</button>
+        <button class="btn" onclick="nextQuestion(4, 'bad')">B) Penthouse</button>
+        <button class="btn" onclick="nextQuestion(4, 'bad')">C) Alchemy of Souls</button>
+        <button class="btn" onclick="nextQuestion(4, 'good')">D) The End of The Fucking World</button>
+    </div>
+
+    <div id="q5" class="hidden">
+        <h2>Pytanie 5</h2>
+        <p>Kto robi najlepsze jedzonko?</p>
+        <button class="btn" onclick="nextQuestion(5, 'good')">A) Wika</button>
+        <button class="btn" onclick="nextQuestion(5, 'bad')">B) Kubuś</button>
+    </div>
+
+    <div id="q6" class="hidden">
+        <h2>Pytanie 6</h2>
+        <p>Ile walentynek od ciebie dostałem?</p>
+        <button class="btn" onclick="nextQuestion(6, 'good')">A) 3</button>
+        <button class="btn" onclick="nextQuestion(6, 'bad')">B) 5</button>
+        <button class="btn" onclick="nextQuestion(6, 'bad')">C) 2</button>
+        <button class="btn" onclick="nextQuestion(6, 'bad')">D) 4</button>
+    </div>
+
+    <div id="q7" class="hidden">
+        <h2>Pytanie 7</h2>
+        <p>Kogo łatwiej obudzić?</p>
+        <button class="btn" onclick="nextQuestion(7, 'bad')">A) Wika</button>
+        <button class="btn" onclick="nextQuestion(7, 'bad')">B) Kubuś</button>
+        <button class="btn" onclick="nextQuestion(7, 'good')">C) to zależy</button>
+    </div>
+
+    <div id="q8" class="hidden">
+        <h2>Pytanie 8</h2>
+        <p>Jakie jedzonko najbardziej lubimy zamawiać?</p>
+        <button class="btn" onclick="nextQuestion(8, 'bad')">A) Pizza</button>
+        <button class="btn" onclick="nextQuestion(8, 'good')">B) kebab </button>
+        <button class="btn" onclick="nextQuestion(8, 'bad')">C) maczek </button>
+        <button class="btn" onclick="nextQuestion(8, 'bad')">D) chinolek lub inne tajskie wynalazki</button>
+    </div>
+
+    <div id="q9" class="hidden"> <h2>Pytanie ostatnie</h2>
+        <p>Kto jest najlepszą dziewczyną na świecie???</p>
+        <button class="btn" onclick="nextQuestion(9, 'good')">A) Wika</button>
+        <button class="btn" onclick="nextQuestion(9, 'good')">B) Wikunia </button>
+        <button class="btn" onclick="nextQuestion(9, 'good')">C) Wiktoria Maria Szarek </button>
+        <button class="btn" onclick="nextQuestion(9, 'good')">D) Pysio </button>
+    </div>
+
+    <div id="end-screen" class="hidden">
+        <h1>Brawo! Quiz zaliczony na 100% 🏆</h1>
+        <p>Teraz wybierz randkę, na którą wspólnie pójdziemy w najbliższy weekend:</p>
+        
+        <div class="date-option" onclick="selectDate('Ekskluzywna kolacja w ciemności')">
+            <h3>🍷 Randka Tajemnica</h3>
+            <p>Idziemy na jakieś dobre jedzonko, może jakieś nowe miejsce.</p>
+        </div>
+        <div class="date-option" onclick="selectDate('Piknik o zachodzie słońca z winem i planszówkami')">
+            <h3>🧺 Randka Chillout</h3>
+            <p>Piknik Dobre pićko i dużo przekąsek.</p>
+        </div>
+        <div class="date-option" onclick="selectDate('Szalony dzień w parku rozrywki / gokarty')">
+            <h3>🏎️ Randka Autko</h3>
+            <p>Piknik w samochodzie? Kocyk podusie filmy i dużo przekąsek</p>
+        </div>
+    </div>
+
+    <div id="thanks-screen" class="hidden">
+        <h1>Zapisane! 📅❤️</h1>
+        <p>Twój wybór to: <strong id="chosen-date"></strong>.</p>
+        <p>Szykuj outfit, ja ogarnę całą resztę. Kocham Cię!</p>
+    </div>
+</div>
+
+<script>
+    function startQuiz() {
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('q1').classList.remove('hidden');
+    }
+function createHeartEffect() {
+     
+        for (let i = 0; i < 6; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-pop');
+            heart.innerText = '❤️';
+            
+        
+            const randomX = (window.innerWidth / 2) + (Math.random() * 200 - 100);
+            const randomY = (window.innerHeight / 2) + (Math.random() * 100 - 50);
+            
+            heart.style.left = randomX + 'px';
+            heart.style.top = randomY + 'px';
+            
+           
+            heart.style.animationDelay = (Math.random() * 0.2) + 's';
+            
+            document.body.appendChild(heart);
+            
+        
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+    }
+
+    function nextQuestion(currentNum, type) {
+        if(type === 'bad') {
+            alert('Pomyśl jeszcze 😉');
+            return;
+        }
+        createHeartEffect();
+        document.getElementById('q' + currentNum).classList.add('hidden');
+        
+        if(currentNum === 1) {
+            document.getElementById('q2').classList.remove('hidden');
+        } else if(currentNum === 2) {
+            document.getElementById('q3').classList.remove('hidden');
+        } else if(currentNum === 3){
+            document.getElementById('q4').classList.remove('hidden');
+        } else if(currentNum === 4){
+            document.getElementById('q5').classList.remove('hidden');
+        } else if(currentNum === 5){
+            document.getElementById('q6').classList.remove('hidden');
+        } else if(currentNum === 6){
+            document.getElementById('q7').classList.remove('hidden');
+        } else if(currentNum === 7){
+            document.getElementById('q8').classList.remove('hidden');
+        } else if(currentNum === 8){
+            document.getElementById('q9').classList.remove('hidden');
+        } else if(currentNum === 9){
+            document.getElementById('end-screen').classList.remove('hidden');
+        }
+    }
+
+   function selectDate(dateName) {
+        document.getElementById('end-screen').classList.add('hidden');
+        document.getElementById('thanks-screen').classList.remove('hidden');
+        document.getElementById('chosen-date').innerText = dateName;
+
+       
+        var duration = 3 * 1000;
+        var end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ff4d6d', '#ff758f']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ff4d6d', '#ff758f']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+
+        console.log("Wybrana randka: " + dateName);
+    }
+</script>
+
+</body>
+</html>
